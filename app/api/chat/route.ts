@@ -1,96 +1,45 @@
-import { convertToModelMessages, streamText, tool, type UIMessage } from "ai"
-import { z } from "zod"
-import {
-  searchNotesByCategory,
-  searchNotesByTag,
-  searchNotesByKeyword,
-  getAvailableMetadata,
-} from "@/lib/festival-notes"
+// Import the OpenAI provider directly
+import { openai } from "@ai-sdk/openai"
+import { convertToModelMessages, streamText, type UIMessage } from "ai"
+import { festivalNotes } from "@/lib/festival-notes"
 
 export const maxDuration = 30
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json()
 
-  const tools = {
-    getAvailableTopics: tool({
-      description:
-        "Get a list of all available tags, topics, and speakers in the festival notes. Use this first to understand what information is available.",
-      inputSchema: z.object({}),
-      execute: async () => {
-        return getAvailableMetadata()
-      },
-    }),
+  // Format festival notes as context string
+  const festivalContext = festivalNotes
+    .map((note) => {
+      return `
+## ${note.title}
+**Category:** ${note.category}
+**Tags:** ${note.tags.join(", ")}
 
-    searchByCategory: tool({
-      description: "Search festival notes by category (topic, speaker, insight, or takeaway)",
-      inputSchema: z.object({
-        category: z.enum(["topic", "speaker", "insight", "takeaway"]).describe("The category to search in"),
-      }),
-      execute: async ({ category }) => {
-        const results = searchNotesByCategory(category)
-        return {
-          results: results.map((note) => ({
-            title: note.title,
-            content: note.content,
-            tags: note.tags,
-          })),
-        }
-      },
-    }),
+${note.content}
+---`
+    })
+    .join("\n")
 
-    searchByTag: tool({
-      description: "Search festival notes by tag (e.g., AI, fintech, leadership, etc.)",
-      inputSchema: z.object({
-        tag: z.string().describe("The tag to search for"),
-      }),
-      execute: async ({ tag }) => {
-        const results = searchNotesByTag(tag)
-        return {
-          results: results.map((note) => ({
-            title: note.title,
-            content: note.content,
-            tags: note.tags,
-          })),
-        }
-      },
-    }),
-
-    searchByKeyword: tool({
-      description: "Search festival notes by keyword in title or content",
-      inputSchema: z.object({
-        keyword: z.string().describe("The keyword to search for"),
-      }),
-      execute: async ({ keyword }) => {
-        const results = searchNotesByKeyword(keyword)
-        return {
-          results: results.map((note) => ({
-            title: note.title,
-            content: note.content,
-            tags: note.tags,
-          })),
-        }
-      },
-    }),
-  }
-
+  // Use the OpenAI provider directly with the OPENAI_API_KEY environment variable
   const result = streamText({
-    model: "openai/gpt-4o-mini",
+    model: openai("gpt-4o-mini"),
     messages: convertToModelMessages(messages),
     abortSignal: req.signal,
     maxOutputTokens: 500,
-    system: `You are a helpful assistant providing information about the Elevate Festival based on specific notes taken by a KPMG senior consultant.
+    system: `You are a helpful AI assistant providing information about the Elevate Festival 2025 - Canada's premier tech and innovation festival held October 7-9, 2025 in Toronto.
 
-When answering questions:
-1. Use the search tools to find relevant information from the festival notes
-2. Always search before answering to ensure accuracy
-3. Cite specific insights, speakers, or topics from the notes when possible
-4. If information isn't in the notes, say so clearly
-5. Provide actionable insights relevant to a consulting context
+You have access to comprehensive festival notes including speaker information, topics, insights, and key takeaways. Use this information to answer questions accurately and provide context.
 
-The festival covered: AI & ethical tech, applied AI, fintech, scaling up, moonshots, and women+ in tech.
-Key speakers included: Simu Liu, Harley Finkelstein, Kara Swisher, Clay Bavor, Chris Urmson, and Arlene Dickinson.`,
-    tools,
+Guidelines:
+- Answer questions based on the festival information provided
+- Be specific and cite speakers, topics, or insights when relevant
+- If asked about something not in the notes, say so clearly
+- Provide actionable insights relevant to tech innovation and entrepreneurship
+- Maintain a professional but friendly tone
+
+FESTIVAL NOTES CONTEXT:
+${festivalContext}`,
   })
 
   return result.toUIMessageStreamResponse()

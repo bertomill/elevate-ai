@@ -2,10 +2,12 @@
 
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
-import { X, Send, Sparkles } from 'lucide-react'
+import { X, Send, Sparkles, GripVertical } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { useChat } from "@ai-sdk/react"
 import { DefaultChatTransport } from "ai"
+import Draggable from "react-draggable"
+import ReactMarkdown from "react-markdown"
 
 interface AIAssistantProps {
   open: boolean
@@ -25,7 +27,7 @@ function LoadingAnimation() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="animate-pulse bg-gradient-to-r from-primary to-accent bg-clip-text text-sm font-medium text-transparent">
+      <span className="animate-pulse text-white text-sm font-medium">
         {loadingTexts[textIndex]}...
       </span>
       <div className="flex gap-1">
@@ -44,6 +46,24 @@ function LoadingAnimation() {
       </div>
     </div>
   )
+}
+
+// Follow-up questions suggestions
+const followUpQuestions: { [key: number]: string[] } = {
+  0: [
+    "Who were the keynote speakers?",
+    "What topics were covered?",
+    "Tell me about the women in tech track",
+  ],
+  1: [
+    "Tell me more about that",
+    "What are the key takeaways?",
+    "Who else spoke about this?",
+  ],
+}
+
+function getFollowUpQuestions(messageIndex: number): string[] {
+  return followUpQuestions[messageIndex % Object.keys(followUpQuestions).length]
 }
 
 export function AIAssistant({ open, onClose }: AIAssistantProps) {
@@ -65,6 +85,11 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const nodeRef = useRef(null)
+  const [width, setWidth] = useState(450)
+  const [height, setHeight] = useState("85vh")
+  const [isResizing, setIsResizing] = useState(false)
+  const resizeRef = useRef({ startX: 0, startY: 0, startWidth: 450, startHeight: 0 })
 
   useEffect(() => {
     if (open) {
@@ -92,6 +117,58 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
     }
   }
 
+  const handleFollowUpClick = (question: string) => {
+    if (inputRef.current) {
+      inputRef.current.value = question
+      inputRef.current.focus()
+      // Trigger submit
+      const form = inputRef.current.closest("form")
+      if (form) {
+        form.dispatchEvent(new Event("submit", { bubbles: true }))
+      }
+    }
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsResizing(true)
+    resizeRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startWidth: width,
+      startHeight: typeof height === "string" ? window.innerHeight * 0.85 : parseInt(height),
+    }
+  }
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing) return
+
+      const deltaX = e.clientX - resizeRef.current.startX
+      const deltaY = e.clientY - resizeRef.current.startY
+
+      const newWidth = Math.max(300, resizeRef.current.startWidth + deltaX)
+      const newHeight = Math.max(300, resizeRef.current.startHeight + deltaY)
+
+      setWidth(newWidth)
+      setHeight(`${newHeight}px`)
+    }
+
+    const handleMouseUp = () => {
+      setIsResizing(false)
+    }
+
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove)
+      document.addEventListener("mouseup", handleMouseUp)
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove)
+      document.removeEventListener("mouseup", handleMouseUp)
+    }
+  }, [isResizing])
+
   if (!open) return null
 
   return (
@@ -99,79 +176,127 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
       {/* Backdrop */}
       <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-custom animate-in fade-in" onClick={onClose} />
 
-      {/* Sheet */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex h-[85vh] flex-col overflow-hidden rounded-t-3xl bg-card shadow-2xl animate-in slide-in-from-bottom duration-300 md:inset-x-auto md:right-6 md:w-[450px]">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b bg-gradient-to-r from-primary to-accent px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="rounded-full bg-white/20 p-2">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <h2 className="font-bold text-white">AI Assistant</h2>
-              <p className="text-xs text-white/80">Ask me anything</p>
-            </div>
-          </div>
-          <button onClick={onClose} className="rounded-full p-2 text-white transition-colors hover:bg-white/20">
-            <X className="h-6 w-6" />
-          </button>
-        </div>
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div
-                  className={`max-w-[80%] rounded-3xl px-4 py-3 ${
-                    message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
-                  }`}
-                >
-                  {message.parts.map((part, index) => {
-                    if (part.type === "text") {
-                      return (
-                        <p key={index} className="text-pretty text-sm leading-relaxed">
-                          {part.text}
-                        </p>
-                      )
-                    }
-                    return null
-                  })}
-                </div>
+      {/* Draggable Chat Sheet */}
+      <Draggable nodeRef={nodeRef} handle=".drag-handle" bounds="parent">
+        <div
+          ref={nodeRef}
+          style={{ width: `${width}px`, height: height }}
+          className="fixed inset-x-0 bottom-0 z-50 flex flex-col overflow-hidden rounded-t-3xl bg-card shadow-2xl animate-in slide-in-from-bottom duration-300 md:inset-x-auto md:right-6 md:w-auto md:rounded-3xl"
+        >
+          {/* Header - Draggable Handle */}
+          <div className="drag-handle flex items-center justify-between border-b bg-gradient-to-r from-primary to-accent px-6 py-4 cursor-move">
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-white/20 p-2">
+                <Sparkles className="h-5 w-5 text-white" />
               </div>
-            ))}
-            {status === "in_progress" && (
-              <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-3xl bg-muted px-4 py-3">
-                  <LoadingAnimation />
-                </div>
+              <div>
+                <h2 className="font-bold text-white">AI Assistant</h2>
+                <p className="text-xs text-white/80">Ask me anything</p>
               </div>
-            )}
-            <div ref={messagesEndRef} />
+            </div>
+            <button onClick={onClose} className="rounded-full p-2 text-white transition-colors hover:bg-white/20">
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-6">
+            <div className="space-y-4">
+              {messages.map((message, index) => (
+                <div key={message.id}>
+                  <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+                    <div
+                      className={`max-w-[80%] rounded-3xl px-4 py-3 ${
+                        message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
+                      }`}
+                    >
+                      {message.parts.map((part, partIndex) => {
+                        if (part.type === "text") {
+                          return (
+                            <div key={partIndex} className="text-pretty text-sm leading-relaxed prose prose-sm max-w-none">
+                              <ReactMarkdown
+                                components={{
+                                  p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                                  strong: ({ node, ...props }) => <strong className="font-bold" {...props} />,
+                                  em: ({ node, ...props }) => <em className="italic" {...props} />,
+                                  ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-2" {...props} />,
+                                  ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-2" {...props} />,
+                                  li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                                  h1: ({ node, ...props }) => <h1 className="font-bold text-base mb-2" {...props} />,
+                                  h2: ({ node, ...props }) => <h2 className="font-bold text-base mb-2" {...props} />,
+                                  h3: ({ node, ...props }) => <h3 className="font-bold mb-1" {...props} />,
+                                  code: ({ node, ...props }) => (
+                                    <code className="bg-black/20 px-1 py-0.5 rounded text-xs" {...props} />
+                                  ),
+                                }}
+                              >
+                                {part.text}
+                              </ReactMarkdown>
+                            </div>
+                          )
+                        }
+                        return null
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Follow-up Questions - Only show for assistant messages */}
+                  {message.role === "assistant" && status !== "in_progress" && (
+                    <div className="mt-3 ml-4 flex flex-wrap gap-2">
+                      {getFollowUpQuestions(index).map((question, qIndex) => (
+                        <button
+                          key={qIndex}
+                          onClick={() => handleFollowUpClick(question)}
+                          className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/30 hover:border-primary/50"
+                        >
+                          {question}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              {status === "in_progress" && (
+                <div className="flex justify-start">
+                  <div className="max-w-[80%] rounded-3xl bg-muted px-4 py-3">
+                    <LoadingAnimation />
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+
+          {/* Input */}
+          <form onSubmit={handleSubmit} className="border-t p-4">
+            <div className="flex gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Ask about the festival..."
+                className="flex-1 rounded-full border bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary"
+                disabled={status === "in_progress"}
+              />
+              <Button
+                type="submit"
+                size="icon"
+                className="h-12 w-12 flex-shrink-0 rounded-full"
+                disabled={status === "in_progress"}
+              >
+                <Send className="h-5 w-5" />
+              </Button>
+            </div>
+          </form>
+
+          {/* Resize Handle */}
+          <div
+            onMouseDown={handleMouseDown}
+            className="absolute bottom-0 right-0 w-6 h-6 cursor-nwse-resize flex items-center justify-center hover:bg-primary/20 rounded-tl"
+          >
+            <GripVertical className="h-4 w-4 text-primary/60" />
           </div>
         </div>
-
-        {/* Input */}
-        <form onSubmit={handleSubmit} className="border-t p-4">
-          <div className="flex gap-2">
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Ask about the festival..."
-              className="flex-1 rounded-full border bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary"
-              disabled={status === "in_progress"}
-            />
-            <Button
-              type="submit"
-              size="icon"
-              className="h-12 w-12 flex-shrink-0 rounded-full"
-              disabled={status === "in_progress"}
-            >
-              <Send className="h-5 w-5" />
-            </Button>
-          </div>
-        </form>
-      </div>
+      </Draggable>
     </>
   )
 }
