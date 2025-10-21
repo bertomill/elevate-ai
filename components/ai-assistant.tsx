@@ -247,7 +247,7 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
                         <button
                           key={qIndex}
                           onClick={() => handleFollowUpClick(question)}
-                          className="text-xs px-3 py-1.5 rounded-full bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-colors border border-indigo-500/30 hover:border-indigo-500/50"
+                          className="text-xs px-3 py-1.5 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-indigo-200 hover:bg-indigo-500/25 transition-colors border border-indigo-500/30 hover:border-indigo-500/50"
                         >
                           {question}
                         </button>
@@ -292,7 +292,7 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
                           handleSubmit({ preventDefault: () => {} } as any)
                         }
                       }}
-                      className="text-xs px-3 py-2 rounded-lg bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/30 hover:border-indigo-500/50 font-medium text-left"
+                      className="text-xs px-3 py-2 rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-indigo-200 hover:bg-indigo-500/25 transition-all border border-indigo-500/30 hover:border-indigo-500/50 font-medium text-left"
                     >
                       {question}
                     </button>
