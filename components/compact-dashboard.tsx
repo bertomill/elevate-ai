@@ -19,6 +19,7 @@ import { SparklesCore } from "./ui/sparkles"
 import { AnimatePresence, motion } from "framer-motion"
 import { CanvasRevealEffect } from "./ui/canvas-reveal-effect"
 import { CardContainer, CardBody, CardItem } from "./ui/3d-card"
+import Image from "next/image"
 
 const topics = [
   {
@@ -189,6 +190,48 @@ export function CompactDashboard() {
 
       <div className="relative z-10 flex-1 overflow-y-auto px-6 py-6">
         <div className="mx-auto max-w-6xl space-y-4">
+          {/* Featured Event Image */}
+          <div className="overflow-hidden rounded-3xl border bg-gradient-to-br from-primary/5 to-accent/5 shadow-sm">
+            <div className="grid gap-6 p-6 lg:grid-cols-2">
+              {/* Image */}
+              <div className="flex items-center justify-center">
+                <div className="relative aspect-square w-full max-w-sm overflow-hidden rounded-2xl border-2 border-primary/20">
+                  <Image
+                    src="/images/elevate-welcome.png"
+                    alt="Elevate Festival 2025 Welcome"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-col justify-center">
+                <div className="mb-3 inline-block w-fit rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
+                  Featured Event
+                </div>
+                <h2 className="mb-3 text-2xl font-bold text-white">
+                  Elevate Festival 2025
+                </h2>
+                <p className="mb-4 text-gray-300">
+                  Canada's premier tech and innovation conference brought together 10,000+ leaders, 250+ speakers, 
+                  and achieved 51% women and non-binary representation—setting new standards for inclusivity in tech.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <span className="inline-block h-2 w-2 rounded-full bg-primary" />
+                    October 7-9, 2025 • Toronto
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+                    Meridian Hall & St. Lawrence Centre
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Topics Section */}
           <div className="overflow-hidden rounded-3xl border bg-card shadow-sm">
             <button
