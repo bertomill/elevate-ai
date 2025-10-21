@@ -180,8 +180,8 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
       <Draggable nodeRef={nodeRef} handle=".drag-handle" bounds="parent">
         <div
           ref={nodeRef}
-          style={{ width: `${width}px`, height: height }}
-          className="fixed inset-x-0 bottom-0 z-50 flex flex-col overflow-hidden rounded-t-3xl bg-card shadow-2xl animate-in slide-in-from-bottom duration-300 md:inset-x-auto md:right-6 md:w-auto md:rounded-3xl"
+          style={{ width: `${width}px`, height: height, maxHeight: "calc(100dvh - 1rem)" }}
+          className="fixed inset-x-0 bottom-0 z-50 flex flex-col overflow-hidden rounded-t-3xl bg-card shadow-2xl animate-in slide-in-from-bottom duration-300 md:inset-x-auto md:right-6 md:w-auto md:rounded-3xl md:bottom-6 md:max-h-[calc(100vh-3rem)]"
         >
           {/* Header - Draggable Handle */}
           <div className="drag-handle flex items-center justify-between border-b bg-gradient-to-r from-primary to-accent px-6 py-4 cursor-move">
