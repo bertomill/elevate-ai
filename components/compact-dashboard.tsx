@@ -426,24 +426,34 @@ export function CompactDashboard() {
                         {
                           title: "AI Transformation",
                           description: "Move quickly to adopt AI or risk falling behind",
+                          deepInsight: "AI is now as transformative as the industrial revolution. Organizations need to embed ethical frameworks into AI strategy from day one. The key is not perfecting AI, but starting to use it strategically now while maintaining responsible practices."
                         },
                         {
                           title: "Ethics Critical",
                           description: "Build ethical frameworks into AI development",
+                          deepInsight: "Ethical considerations must be embedded from the beginning, not added later. Companies that build trust through responsible AI will have competitive advantages. Context-specific AI training and human oversight are essential to prevent harm."
                         },
                         {
-                          title: "Talent Competition",
-                          description: "Companies competing fiercely for AI talent",
+                          title: "Human Connection",
+                          description: "AI amplifies potential; human connection becomes more valuable",
+                          deepInsight: "70% of customer purchase decisions are based on experience. AI should enhance human connections, not replace them. In the AI era, authenticity and meaningful relationships are your real differentiators in the marketplace."
                         },
                         {
-                          title: "Collaboration",
-                          description: "Success comes from cross-industry partnerships",
+                          title: "Canadian Opportunity",
+                          description: "Canadian founders can compete globally with ambition",
+                          deepInsight: "Canada needs to inject more ambition into its entrepreneurial mindset. Don't settle for being a country of branch offices. With diversity, talent, and supportive ecosystems like Elevate, Canadian companies can scale globally and lead innovation."
                         },
                       ].map((insight, idx) => (
-                        <div key={idx} className="rounded-lg border bg-background p-2.5 text-sm">
-                          <h3 className="mb-0.5 font-semibold text-xs">{insight.title}</h3>
-                          <p className="text-xs text-muted-foreground">{insight.description}</p>
-                        </div>
+                        <details key={idx} className="group rounded-lg border bg-background transition-colors hover:bg-accent/5">
+                          <summary className="flex cursor-pointer items-center justify-between p-2.5 font-semibold text-xs">
+                            <span>{insight.title}</span>
+                            <ChevronRight className="h-4 w-4 transition-transform group-open:rotate-90" />
+                          </summary>
+                          <div className="border-t bg-background/50 p-2.5">
+                            <p className="text-xs text-muted-foreground mb-2">{insight.description}</p>
+                            <p className="text-xs leading-relaxed text-foreground">{insight.deepInsight}</p>
+                          </div>
+                        </details>
                       ))}
                     </div>
                   </div>
