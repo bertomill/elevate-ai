@@ -27,20 +27,20 @@ function LoadingAnimation() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="animate-pulse text-white text-sm font-medium">
+      <span className="animate-pulse text-foreground text-sm font-medium">
         {loadingTexts[textIndex]}...
       </span>
       <div className="flex gap-1">
         <div
-          className="h-1.5 w-1.5 animate-bounce rounded-full bg-gradient-to-r from-primary to-accent"
+          className="h-1.5 w-1.5 animate-bounce rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400"
           style={{ animationDelay: "0ms" }}
         />
         <div
-          className="h-1.5 w-1.5 animate-bounce rounded-full bg-gradient-to-r from-primary to-accent"
+          className="h-1.5 w-1.5 animate-bounce rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400"
           style={{ animationDelay: "150ms" }}
         />
         <div
-          className="h-1.5 w-1.5 animate-bounce rounded-full bg-gradient-to-r from-primary to-accent"
+          className="h-1.5 w-1.5 animate-bounce rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400"
           style={{ animationDelay: "300ms" }}
         />
       </div>
@@ -184,17 +184,17 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
           className="fixed inset-x-0 bottom-0 z-50 flex flex-col overflow-hidden rounded-t-3xl bg-card shadow-2xl animate-in slide-in-from-bottom duration-300 md:inset-x-auto md:right-6 md:w-auto md:rounded-3xl md:bottom-6 md:max-h-[calc(100vh-3rem)]"
         >
           {/* Header - Draggable Handle */}
-          <div className="drag-handle flex items-center justify-between border-b bg-gradient-to-r from-primary to-accent px-6 py-4 cursor-move">
+          <div className="drag-handle flex items-center justify-between border-b bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-cyan-600/20 border-border/50 px-6 py-4 cursor-move">
             <div className="flex items-center gap-3">
-              <div className="rounded-full bg-white/20 p-2">
-                <Sparkles className="h-5 w-5 text-white" />
+              <div className="rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-500/30 p-2 border border-indigo-500/20">
+                <Sparkles className="h-5 w-5 text-indigo-400" />
               </div>
               <div>
-                <h2 className="font-bold text-white">AI Assistant</h2>
-                <p className="text-xs text-white/80">Ask me anything</p>
+                <h2 className="font-bold text-foreground">AI Assistant</h2>
+                <p className="text-xs text-muted-foreground">Ask me anything</p>
               </div>
             </div>
-            <button onClick={onClose} className="rounded-full p-2 text-white transition-colors hover:bg-white/20">
+            <button onClick={onClose} className="rounded-full p-2 text-foreground/60 transition-colors hover:bg-foreground/10 hover:text-foreground">
               <X className="h-6 w-6" />
             </button>
           </div>
@@ -247,7 +247,7 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
                         <button
                           key={qIndex}
                           onClick={() => handleFollowUpClick(question)}
-                          className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/30 hover:border-primary/50"
+                          className="text-xs px-3 py-1.5 rounded-full bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-colors border border-indigo-500/30 hover:border-indigo-500/50"
                         >
                           {question}
                         </button>
@@ -292,7 +292,7 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
                           handleSubmit({ preventDefault: () => {} } as any)
                         }
                       }}
-                      className="text-xs px-3 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all border border-primary/30 hover:border-primary/50 font-medium text-left"
+                      className="text-xs px-3 py-2 rounded-lg bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/25 transition-all border border-indigo-500/30 hover:border-indigo-500/50 font-medium text-left"
                     >
                       {question}
                     </button>
