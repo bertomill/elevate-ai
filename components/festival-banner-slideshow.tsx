@@ -7,33 +7,28 @@
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
 
 export function FestivalBannerSlideshow() {
-  // Placeholder images for the festival slideshow
-  // These should be replaced with actual festival photos
+  // Festival images from the Elevate Festival 2025
+  // Showcasing key moments from the event
   const festivalImages = [
     {
-      src: "/images/elevate-welcome.png",
-      name: "Festival Welcome",
-      designation: "Opening Day - Elevate 2025",
+      src: "/images/elevate-1.png",
+      name: "Main Hall",
+      designation: "10,000+ attendees gathering",
     },
     {
-      src: "/images/elevate-speaker-stage.png",
-      name: "Main Stage",
-      designation: "World-Class Speakers",
+      src: "/images/elevate-2.png",
+      name: "Speaker Interview",
+      designation: "Thought Leadership in Action",
     },
     {
-      src: "/images/elevate-ai-panel.png",
-      name: "AI Innovation Panel",
-      designation: "Thought Leadership Discussion",
+      src: "/images/elevate-3.png",
+      name: "Press Conference",
+      designation: "Elevate Festival 2025 Launch",
     },
     {
-      src: "/placeholder.jpg",
-      name: "Networking Lounge",
-      designation: "Community Connection",
-    },
-    {
-      src: "/placeholder.jpg",
-      name: "Festival Energy",
-      designation: "10,000+ Attendees",
+      src: "/images/elevate-4.png",
+      name: "Startup Stage",
+      designation: "Emerging Founder Pitches",
     },
   ]
 
