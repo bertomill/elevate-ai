@@ -193,7 +193,7 @@ export function CompactDashboard() {
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Left Column - Featured Event Image */}
             <div className="flex items-center justify-center">
-              <div className="relative aspect-square w-full overflow-hidden rounded-2xl border-2 border-primary/20">
+              <div className="relative aspect-square w-full max-w-xs overflow-hidden rounded-2xl border-2 border-primary/20">
                 <Image
                   src="/images/banner.png"
                   alt="Elevate Festival 2025 Banner"
