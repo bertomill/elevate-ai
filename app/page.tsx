@@ -3,12 +3,14 @@
 import { useState } from "react"
 import { CompactDashboard } from "@/components/compact-dashboard"
 import { AIAssistant } from "@/components/ai-assistant"
-import { MessageCircle } from 'lucide-react'
+import { TimelineMode } from "@/components/timeline-mode"
+import { MessageCircle, Clock } from 'lucide-react'
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation"
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
 
 export default function ElevateFestivalPage() {
   const [showAI, setShowAI] = useState(false)
+  const [showTimeline, setShowTimeline] = useState(false)
 
   return (
     <BackgroundGradientAnimation
@@ -28,6 +30,20 @@ export default function ElevateFestivalPage() {
       <main className="relative h-screen overflow-hidden">
         <CompactDashboard />
 
+        {/* Timeline Button */}
+        <div className="fixed bottom-6 left-6 z-50">
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            className="rounded-full bg-black px-0 py-0"
+            onClick={() => setShowTimeline(true)}
+            duration={1}
+          >
+            <div className="flex items-center justify-center h-14 w-14">
+              <Clock className="h-6 w-6 text-white" />
+            </div>
+          </HoverBorderGradient>
+        </div>
+
         {/* Animated Chat Button */}
         <div className="fixed bottom-6 right-6 z-50">
           <HoverBorderGradient
@@ -41,6 +57,9 @@ export default function ElevateFestivalPage() {
             </div>
           </HoverBorderGradient>
         </div>
+
+        {/* Timeline Mode Modal */}
+        {showTimeline && <TimelineMode onClose={() => setShowTimeline(false)} />}
 
         {/* AI Assistant Sheet */}
         <AIAssistant open={showAI} onClose={() => setShowAI(false)} />
