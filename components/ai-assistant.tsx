@@ -190,8 +190,8 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
                 <Sparkles className="h-5 w-5 text-indigo-400" />
               </div>
               <div>
-                <h2 className="font-bold text-foreground">AI Assistant</h2>
-                <p className="text-xs text-muted-foreground">Ask me anything</p>
+                <h2 className="font-bold text-foreground">Elevate Assistant</h2>
+                <p className="text-xs text-muted-foreground">ask me anything about the festival</p>
               </div>
             </div>
             <button onClick={onClose} className="rounded-full p-2 text-foreground/60 transition-colors hover:bg-foreground/10 hover:text-foreground">
