@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "Elevate Festival 2025 | KPMG Innovation Report",
   description: "Key insights and learnings from Canada's premier tech and innovation conference",
   generator: "v0.app",
+  icons: {
+    icon: "/favicon.svg",
+  },
 }
 
 export default function RootLayout({
