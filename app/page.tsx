@@ -3,9 +3,9 @@
 import { useState } from "react"
 import { CompactDashboard } from "@/components/compact-dashboard"
 import { AIAssistant } from "@/components/ai-assistant"
-import { Button } from "@/components/ui/button"
 import { MessageCircle } from 'lucide-react'
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation"
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
 
 export default function ElevateFestivalPage() {
   const [showAI, setShowAI] = useState(false)
@@ -28,13 +28,19 @@ export default function ElevateFestivalPage() {
       <main className="relative h-screen overflow-hidden">
         <CompactDashboard />
 
-        <Button
-          onClick={() => setShowAI(true)}
-          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-lg"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
+        {/* Animated Chat Button */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            className="rounded-full bg-black px-0 py-0"
+            onClick={() => setShowAI(true)}
+            duration={1}
+          >
+            <div className="flex items-center justify-center h-14 w-14">
+              <MessageCircle className="h-6 w-6 text-white" />
+            </div>
+          </HoverBorderGradient>
+        </div>
 
         {/* AI Assistant Sheet */}
         <AIAssistant open={showAI} onClose={() => setShowAI(false)} />
