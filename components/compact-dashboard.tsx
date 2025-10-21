@@ -19,7 +19,7 @@ import { SparklesCore } from "./ui/sparkles"
 import { AnimatePresence, motion } from "framer-motion"
 import { CanvasRevealEffect } from "./ui/canvas-reveal-effect"
 import { CardContainer, CardBody, CardItem } from "./ui/3d-card"
-import Image from "next/image"
+import { FestivalBannerSlideshow } from "./festival-banner-slideshow"
 
 const topics = [
   {
@@ -193,15 +193,7 @@ export function CompactDashboard() {
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Left Column - Featured Event Image */}
             <div className="flex items-center justify-center">
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border-2 border-primary/20">
-                <Image
-                  src="/images/banner.png"
-                  alt="Elevate Festival 2025 Banner"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+              <FestivalBannerSlideshow />
             </div>
 
             {/* Right Column - Condensed Cards */}
