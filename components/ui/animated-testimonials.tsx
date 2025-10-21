@@ -53,7 +53,7 @@ export const AnimatedTestimonials = ({
   return (
     <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-6xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.3fr_1fr]">
-        {/* Image Carousel */}
+        {/* Image Carousel - Auto-rotating */}
         <div className="col-span-1">
           <div className="relative h-96 w-full md:h-[500px] lg:h-[600px]">
             <AnimatePresence>
@@ -99,61 +99,6 @@ export const AnimatedTestimonials = ({
                 </motion.div>
               ))}
             </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Navigation and Info Section */}
-        <div className="flex flex-col justify-between py-4">
-          <motion.div
-            key={active}
-            initial={{
-              y: 20,
-              opacity: 0,
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-            }}
-            exit={{
-              y: -20,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.2,
-              ease: "easeInOut",
-            }}
-          >
-            {testimonials[active].name && (
-              <>
-                <h3 className="text-2xl font-bold text-black dark:text-white">
-                  {testimonials[active].name}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-neutral-500">
-                  {testimonials[active].designation}
-                </p>
-              </>
-            )}
-            
-            {/* Slide counter */}
-            <div className="mt-8 text-lg font-semibold text-gray-600 dark:text-neutral-300">
-              Slide {active + 1} of {testimonials.length}
-            </div>
-          </motion.div>
-
-          {/* Navigation Buttons */}
-          <div className="flex gap-4 pt-12 md:pt-0">
-            <button
-              onClick={handlePrev}
-              className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20 hover:bg-indigo-500/30 transition-colors dark:bg-indigo-500/20"
-            >
-              <IconArrowLeft className="h-5 w-5 text-indigo-600 dark:text-indigo-300 transition-transform duration-300 group-hover/button:rotate-12" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20 hover:bg-indigo-500/30 transition-colors dark:bg-indigo-500/20"
-            >
-              <IconArrowRight className="h-5 w-5 text-indigo-600 dark:text-indigo-300 transition-transform duration-300 group-hover/button:-rotate-12" />
-            </button>
           </div>
         </div>
       </div>
