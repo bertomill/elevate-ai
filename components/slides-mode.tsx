@@ -72,12 +72,12 @@ export function SlidesMode({ onExit }: SlidesModeProps) {
   const slide = slides[currentSlide]
 
   return (
-    <div className="relative flex h-screen flex-col overflow-hidden bg-black">
+    <div className="relative flex h-screen flex-col bg-black">
       {/* Decorative gradient shapes */}
-      <div className="pointer-events-none absolute right-0 top-0 h-[600px] w-[600px] opacity-20">
+      <div className="pointer-events-none fixed right-0 top-0 h-[600px] w-[600px] opacity-20 z-0">
         <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-gradient-to-br from-primary to-accent blur-3xl" />
       </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 h-[600px] w-[600px] opacity-20">
+      <div className="pointer-events-none fixed bottom-0 left-0 h-[600px] w-[600px] opacity-20 z-0">
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-gradient-to-tr from-pink to-primary blur-3xl" />
       </div>
 
@@ -100,57 +100,59 @@ export function SlidesMode({ onExit }: SlidesModeProps) {
         </button>
       </div>
 
-      {/* Main Slide Content */}
-      <div className="relative z-10 flex flex-1 items-center justify-center p-12">
-        <div className="w-full max-w-6xl">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-12 shadow-2xl backdrop-blur-xl">
-            <div className="grid gap-8 lg:grid-cols-2">
-              {/* Left Side - Content */}
-              <div className="flex flex-col justify-center">
-                <div className="mb-2 inline-block w-fit rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
-                  Slide {currentSlide + 1} of {slides.length}
-                </div>
-                <h1 className="mb-2 bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-4xl font-bold tracking-tight text-transparent lg:text-5xl">
-                  {slide.title}
-                </h1>
-                <p className="mb-8 text-xl text-gray-300">{slide.subtitle}</p>
+      {/* Main Slide Content - Scrollable */}
+      <div className="relative z-10 flex-1 overflow-y-auto pt-12 pb-32">
+        <div className="flex items-center justify-center min-h-screen p-12">
+          <div className="w-full max-w-6xl">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-12 shadow-2xl backdrop-blur-xl">
+              <div className="grid gap-8 lg:grid-cols-2">
+                {/* Left Side - Content */}
+                <div className="flex flex-col justify-center">
+                  <div className="mb-2 inline-block w-fit rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
+                    Slide {currentSlide + 1} of {slides.length}
+                  </div>
+                  <h1 className="mb-2 bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-4xl font-bold tracking-tight text-transparent lg:text-5xl">
+                    {slide.title}
+                  </h1>
+                  <p className="mb-8 text-xl text-gray-300">{slide.subtitle}</p>
 
-                <div className="space-y-4">
-                  {slide.content.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <div className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-gradient-to-r from-primary to-accent" />
-                      <p className="text-lg leading-relaxed text-white">{item}</p>
+                  <div className="space-y-4">
+                    {slide.content.map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-gradient-to-r from-primary to-accent" />
+                        <p className="text-lg leading-relaxed text-white">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Side - Image */}
+                <div className="flex items-center justify-center">
+                  {slide.image ? (
+                    <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20">
+                      <Image
+                        src={slide.image || "/placeholder.svg"}
+                        alt={slide.imageAlt || "Slide image"}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                  ))}
+                  ) : (
+                    <div className="flex aspect-square w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-white/20 bg-white/5 p-8 text-center backdrop-blur-sm">
+                      <ImageIcon className="mb-4 h-16 w-16 text-white/40" />
+                      <p className="mb-2 font-medium text-white/80">Image Placeholder</p>
+                      <p className="text-sm text-white/60">{slide.imagePrompt}</p>
+                    </div>
+                  )}
                 </div>
-              </div>
-
-              {/* Right Side - Image */}
-              <div className="flex items-center justify-center">
-                {slide.image ? (
-                  <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20">
-                    <Image
-                      src={slide.image || "/placeholder.svg"}
-                      alt={slide.imageAlt || "Slide image"}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex aspect-square w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-white/20 bg-white/5 p-8 text-center backdrop-blur-sm">
-                    <ImageIcon className="mb-4 h-16 w-16 text-white/40" />
-                    <p className="mb-2 font-medium text-white/80">Image Placeholder</p>
-                    <p className="text-sm text-white/60">{slide.imagePrompt}</p>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Controls */}
-      <div className="relative z-10 flex items-center justify-between px-12 pb-8">
+      {/* Navigation Controls - Fixed at Bottom */}
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-between px-12 py-8">
         <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
