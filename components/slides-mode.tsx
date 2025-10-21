@@ -85,10 +85,15 @@ export function SlidesMode({ onExit }: SlidesModeProps) {
       <div className="absolute inset-x-0 top-0 z-20 h-1 gradient-elevate" />
 
       {/* Header with Exit Button */}
-      <div className="absolute right-6 top-6 z-10">
+      <div className="absolute right-6 top-6 z-50">
         <button
-          onClick={onExit}
-          className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onExit()
+          }}
+          type="button"
+          className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20 pointer-events-auto cursor-pointer"
         >
           <X className="h-4 w-4" />
           <span className="text-sm font-medium">Exit Slides</span>
