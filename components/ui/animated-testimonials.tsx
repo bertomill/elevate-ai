@@ -51,11 +51,11 @@ export const AnimatedTestimonials = ({
   };
 
   return (
-    <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-6xl md:px-8 lg:px-12">
-      <div className="relative grid grid-cols-1 gap-20 md:grid-cols-[1.2fr_1fr] lg:grid-cols-[1.3fr_1fr]">
-        {/* Image Carousel - Auto-rotating */}
-        <div className="col-span-1">
-          <div className="relative h-96 w-full md:h-[500px] lg:h-[600px]">
+    <div className="mx-auto w-full px-4 py-8 font-sans antialiased md:px-8 lg:px-12">
+      <div className="flex items-center justify-center">
+        {/* Image Carousel - Auto-rotating - Centered */}
+        <div className="w-full max-w-4xl">
+          <div className="relative h-96 w-full md:h-[480px] lg:h-[520px]">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
