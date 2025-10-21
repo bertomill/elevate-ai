@@ -1350,6 +1350,196 @@ export const festivalNotes: FestivalNote[] = [
     category: "insight",
     tags: ["schedule", "pitch", "startups", "day 1"],
   },
+
+  // ELEVATE FESTIVAL 2024 RECAP
+  {
+    id: "elevate-2024-overview",
+    title: "Elevate Festival 2024 - Four Key Takeaways",
+    content: `
+      By: Shivani Persad, October 30, 2024
+      
+      Elevate Festival 2024 explored the latest in cybersecurity, scaling startups, AI, the future of Canadian tech and more.
+      
+      KEY METRICS:
+      - Over 9,500 attendees
+      - 47% of speakers were visible minorities
+      - Over 50% of speakers were women-identifying
+      - Distributed hundreds of thousands of dollars in investment
+      - Attended by founders, investors, and tech professionals
+      - Industries represented: retail, machine learning, banking, climate tech
+      
+      This year's Festival had an incredible number of attendees, packed masterclasses, buzzing lounges, and world-class speakers.
+    `,
+    category: "insight",
+    tags: ["2024", "festival recap", "overview", "diversity", "networking"],
+  },
+
+  {
+    id: "elevate-2024-attendance-diversity",
+    title: "Elevate 2024: Incredible Attendance and Diversity",
+    content: `
+      ATTENDANCE BREAKDOWN:
+      - Over 9,500 total attendees
+      - Founders, investors, and tech professionals
+      - Industries: retail, machine learning, banking, climate tech
+      
+      SPEAKER DIVERSITY:
+      - 47% visible minorities
+      - 50%+ women-identifying speakers
+      
+      ATTENDEE TESTIMONIALS:
+      
+      Mary Yazdani, Co-founder & CEO, Robosafety:
+      "As a founder who has bootstrapped, I couldn't agree more with the lessons shared during the Self-Made Success session at Elevate 2024. There is no right or wrong answer—every founder should assess what's best for their business."
+      
+      Amanda Connon-Unda, Head of Marketing, Augmenta:
+      "Finally made it to Elevate – Listening to fantastic insights on bootstrapped business and founder lessons from Fatima Zaidi & Sarah Stockdale: 'Don't let imposter syndrome stop you. It's a great equalizer.'"
+      
+      Izzy Piyale-Sheard, Founder, ClearCareer:
+      "AI isn't replacing us; it's amplifying our CREATIVE potential. Marc Low from KPMG delivered thought-provoking insights: AI is the tool, but WE are the value drivers."
+      
+      SIGNIFICANCE:
+      Record-breaking attendance and representation of diverse voices in tech innovation.
+    `,
+    category: "insight",
+    tags: ["2024", "attendance", "diversity", "speakers", "inclusion", "women in tech"],
+  },
+
+  {
+    id: "elevate-2024-investment",
+    title: "Elevate 2024: Tangible Investment in Innovation",
+    content: `
+      TOTAL INVESTMENT DISTRIBUTED:
+      Over $750,000 in investments into tech startups through direct investment, grants, and AWS credits
+      
+      WOMEN+ PROGRAM - HISTORIC ANNOUNCEMENT:
+      - 8-week intensive program
+      - Supported by Government of Canada and Mastercard
+      - Firehood Angels doubled commitment to $200,000 grand prize
+      
+      WINNERS:
+      1. Nunafab (Oakville) - $200,000 grand prize
+         CEO: Cynthia Ene
+         Focus: High-performance materials for construction industry
+      
+      2. Infinite Harvest Technologies (Niagara) - $25,000
+         Focus: Sustainable waste management using insects
+      
+      3. Oasis Learning AI (Montreal) - $500,000 AWS credits
+         Focus: AI-powered employee training platform
+      
+      ECOMMERCE NORTH INNOVATION SHOWCASE (Partnership with Moneris):
+      - Winner: SnapWrite (Toronto) - $10,000 grant
+      - CEO: Athiya Rastogi
+      - Focus: AI platform automating product detail pages and resale channels
+      
+      BLACK INNOVATION ZONE - THREE COMPETITIONS:
+      Nobellum Black Women in STEM:
+      - Winner: Instant Save (Leanne Spence) - $3,500
+      - Focus: Digitizing Jamaica's food supply system
+      
+      Black Entrepreneurship Program:
+      - Winners: Elev8 and Perform - $5,000
+      - Focus: Exercise fatigue solution
+      - Runners: My Well Self ($3,000), Owambe ($2,000)
+      
+      SUSTAINABLE CHANGEMAKER CHALLENGE (Partnership with Mackenzie):
+      Six-week program focused on reducing greenhouse gas emissions
+      Total Prize Pool: $40,000
+      
+      Winners:
+      - Aruna Revolution (Dartmouth) - $25,000 (eco-friendly menstrual products)
+      - CERT Systems (Toronto) - $10,000 (CO2 conversion technology)
+      - NANOSentinel Technologies (Burnaby) - $5,000 (toxic metal monitoring)
+      
+      IMPACT:
+      Demonstrates vibrant state of Canadian innovation in sustainability, diversity, and digital commerce.
+    `,
+    category: "insight",
+    tags: ["2024", "investment", "pitch competitions", "women founders", "diversity", "startups", "grants"],
+  },
+
+  {
+    id: "elevate-2024-thought-leadership",
+    title: "Elevate 2024: World-Class Thought Leadership",
+    content: `
+      HARLEY FINKELSTEIN (President, Shopify) - Canadian Innovation:
+      "I think this idea of injecting more ambition into the Canadian psyche. This idea of not going for bronze but going for gold, owning the podium... I don't want to be a country of branch offices."
+      
+      Key Insights:
+      - Journey from 13-year-old DJ to President of Shopify
+      - Success comes from being comfortable with discomfort
+      - Maintaining growth mindset (growing faster than your environment)
+      - Embracing "misogi" - taking on one scary thing each year
+      - Leading Shopify's transition to digital-by-design while maintaining cultural connections
+      
+      DAX DASILVA (CEO, Lightspeed) - Modern CEO Playbook:
+      "I think people are living their entire, authentic, whole self... They're multifaceted. That mixing is where you find innovation, that nexus of ideas."
+      
+      Key Insights:
+      - Balancing running a major tech company with personal passions
+      - Integrating interests in conservation, art, and sustainability
+      - Being multifaceted drives innovation
+      - Founder evolution and maintaining authenticity
+      
+      ALTHEA WISHLOFF (General Partner, Raven Capital) - Indigenous Venture Capital:
+      "If you're already an under-resourced community, what does it say to then have other people say, I will give you capital only if you are subject to these conditions?"
+      
+      Key Insights:
+      - Indigenous businesses access only 0.2% of available credit in Canada
+      - Raven Capital: first venture fund exclusively for Indigenous businesses
+      - Dual mission: culturally competent capital + Indigenous ownership
+      - Breaking down barriers for underrepresented groups
+      
+      TEGAN AND SARA with ELAMIN ABDELMAHMOUD - Creative Growth:
+      "I want to write the way that I did when I was 15 years old again... I want to say the thing, get to the heart of the matter and say things that make me uncomfortable."
+      
+      Key Insights:
+      - Expanding creative work beyond music (memoirs, graphic novels, TV, documentary)
+      - Documentary: "Fanatical: The Catfishing of Tegan and Sara"
+      - Balancing honest storytelling with ethical consideration
+      - Curating public persona while maintaining private boundaries
+      
+      SIGNIFICANCE:
+      Diverse perspectives on leadership, innovation, representation, and creative authenticity in business.
+    `,
+    category: "insight",
+    tags: ["2024", "keynotes", "thought leadership", "speakers", "Canadian innovation", "leadership"],
+  },
+
+  {
+    id: "elevate-2024-networking",
+    title: "Elevate 2024: Quantifiable Networking Success",
+    content: `
+      BRAINDATE INTEGRATION:
+      - New networking platform introduced
+      - One-on-one meetings between attendees
+      - Topical group discussions (six people per group)
+      - Over 5,000 attendees met across two days
+      - Braindate lounge was constantly full
+      
+      MEETING EXCHANGES:
+      Direct networking between founders and investors
+      - 295 meetings facilitated between Canadian founders and investors
+      - Provides access to typically unavailable investor calendars
+      - Potential for significant deal formation
+      
+      IMPACT:
+      "Over 5000 attendees meeting across two days to create meaningful connections."
+      
+      NETWORKING VALUE:
+      - Next-level networking capabilities
+      - Meaningful connection facilitation
+      - Direct founder-investor matching
+      - Community building across Canadian tech ecosystem
+      
+      FUTURE OUTLOOK:
+      Next Elevate Festival: October 7-9, 2025
+      Upcoming: CIX (Canada's top tech investment conference) on March 26-27, 2025
+    `,
+    category: "insight",
+    tags: ["2024", "networking", "Braindate", "founder-investor", "meetings", "community"],
+  },
 ]
 
 export function searchNotesByCategory(category: FestivalNote["category"]): FestivalNote[] {
