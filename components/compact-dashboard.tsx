@@ -105,8 +105,14 @@ const topics = [
 const speakers = [
   { name: "Simu Liu", role: "Actor & Entrepreneur", topic: "Innovation in Entertainment" },
   { name: "Harley Finkelstein", role: "President, Shopify", topic: "E-commerce Evolution" },
-  { name: "Kara Swisher", role: "Tech Journalist", topic: "Future of Tech Media" },
   { name: "Chris Urmson", role: "CEO, Aurora", topic: "Autonomous Vehicles" },
+  { name: "Ida Tin", role: "Co-Founder, Clue", topic: "Femtech Innovation" },
+  { name: "Chris Lehane", role: "Chief Global Affairs Officer, OpenAI", topic: "AI Democratization" },
+  { name: "Arlene Dickinson", role: "Founder, District Ventures Capital", topic: "Canadian Entrepreneurship" },
+  { name: "Nick Frosst", role: "Co-Founder, Cohere", topic: "Large Language Models" },
+  { name: "Ndidi Oteh", role: "Global CEO, Accenture Song", topic: "Customer Experience & AI" },
+  { name: "Amber Mac", role: "President, AmberMac Media", topic: "Tech Leadership & Media" },
+  { name: "Olivia Chow", role: "Mayor of Toronto", topic: "Urban Innovation" },
 ]
 
 export function CompactDashboard() {
