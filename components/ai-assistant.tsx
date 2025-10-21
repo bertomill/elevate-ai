@@ -268,7 +268,40 @@ export function AIAssistant({ open, onClose }: AIAssistantProps) {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="border-t p-4">
+          <form onSubmit={handleSubmit} className="border-t p-4 space-y-3">
+            {/* Quick Questions - Show when no messages or empty chat */}
+            {messages.length === 0 && (
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Quick Questions:</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    "What was the 2024 theme?",
+                    "Key 2025 insights",
+                    "Who were the speakers?",
+                    "Investment opportunities",
+                    "Tell me about women founders",
+                    "What's the 2026 vision?",
+                  ].map((question) => (
+                    <button
+                      key={question}
+                      type="button"
+                      onClick={() => {
+                        // Set the input value and submit
+                        if (inputRef.current) {
+                          inputRef.current.value = question
+                          handleSubmit({ preventDefault: () => {} } as any)
+                        }
+                      }}
+                      className="text-xs px-3 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all border border-primary/30 hover:border-primary/50 font-medium text-left"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Input Field */}
             <div className="flex gap-2">
               <input
                 ref={inputRef}
